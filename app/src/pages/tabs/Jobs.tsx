@@ -6,24 +6,23 @@ import {
   IonToolbar,
 } from "@ionic/react";
 
-const Tab3: React.FC = () => {
+const Jobs: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>Jobs</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 3</IonTitle>
+            <IonTitle size="large">Jobs</IonTitle>
           </IonToolbar>
         </IonHeader>
-        content
       </IonContent>
     </IonPage>
   );
 };
 
-export default Tab3;
+export default Jobs;

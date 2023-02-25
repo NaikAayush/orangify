@@ -5,22 +5,19 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useContext } from "react";
 
-const Tab1: React.FC = () => {
-  const [errorMsg, setErrorMsg] = React.useState("");
-  const [phoneErrorMsg, setPhoneErrorMsg] = React.useState("");
+const Settings: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 200</IonTitle>
+          <IonTitle>Settings</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
+            <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
       </IonContent>
@@ -28,4 +25,4 @@ const Tab1: React.FC = () => {
   );
 };
 
-export default Tab1;
+export default Settings;

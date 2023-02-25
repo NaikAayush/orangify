@@ -8,43 +8,40 @@ import {
   IonTabButton,
   IonTabs,
 } from "@ionic/react";
-import { ellipse, square, triangle } from "ionicons/icons";
-import Tab1 from "./Tab1";
-import Tab2 from "./Tab2";
-import Tab3 from "./Tab3";
-import { useContext } from "react";
+import { cog, wallet, newspaper } from "ionicons/icons";
+
+import Jobs from "./tabs/Jobs";
+import Settings from "./tabs/Settings";
+import Wallet from "./tabs/Wallet";
 
 const Tabs: React.FC = () => {
   return (
     <IonContent>
       <IonTabs>
         <IonRouterOutlet>
-          <Redirect exact path="/tabs" to="/tabs/tab1" />
-          <Route exact path="/tabs/tab1">
-            <Tab1 />
+          <Redirect exact path="/tabs" to="/tabs/jobs" />
+          <Route exact path="/tabs/jobs">
+            <Jobs />
           </Route>
-          <Route exact path="/tabs/tab2">
-            <Tab2 />
+          <Route exact path="/tabs/wallet">
+            <Wallet />
           </Route>
-          <Route path="/tabs/tab3">
-            <Tab3 />
-          </Route>
-          <Route exact path="/tabs">
-            <Redirect to="/tabs/tab1" />
+          <Route path="/tabs/settings">
+            <Settings />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tabs/tab1">
-            <IonIcon icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
+          <IonTabButton tab="jobs" href="/tabs/jobs">
+            <IonIcon icon={newspaper} />
+            <IonLabel>Jobs</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tabs/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
+          <IonTabButton tab="wallet" href="/tabs/wallet">
+            <IonIcon icon={wallet} />
+            <IonLabel>Wallet</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tabs/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+          <IonTabButton tab="settings" href="/tabs/settings">
+            <IonIcon icon={cog} />
+            <IonLabel>Settings</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
