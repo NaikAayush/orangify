@@ -211,6 +211,16 @@ contract OrangeVerifiedCredential {
         );
     }
 
+    function getCertificate(
+        uint256 _certificateId
+    ) public view returns (Certificate memory) {
+        require(_certificateId < certificates.length, "Invalid certificate ID");
+        Certificate storage certificate = certificates[_certificateId];
+        require(!certificate.revoked, "Certificate was revoked");
+
+        return certificate;
+    }
+
     function getAllCertificatesOfType(
         uint256 _typeId
     ) public view returns (Certificate[] memory) {
