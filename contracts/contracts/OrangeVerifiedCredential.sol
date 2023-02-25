@@ -17,6 +17,7 @@ contract OrangeVerifiedCredential {
         bool _isInit;
         uint256 id;
         CertificateType type_;
+        string issuedTo;
         string data;
         uint256 createdAt;
         // 0 means no expiry.
@@ -35,6 +36,7 @@ contract OrangeVerifiedCredential {
     event CertificateAdded(
         uint256 indexed typeId,
         uint256 indexed certificateId,
+        string issuedTo,
         string data,
         address indexed owner
     );
@@ -129,6 +131,7 @@ contract OrangeVerifiedCredential {
     // addCertificate: Create a new certificate of a certain type.
     function addCertificate(
         uint256 _typeId,
+        string memory issuedTo,
         string memory _data,
         uint256 _validity
     ) public returns (uint256) {
@@ -154,6 +157,7 @@ contract OrangeVerifiedCredential {
                 true,
                 id,
                 certType,
+                issuedTo,
                 _data,
                 block.timestamp,
                 _validity,
@@ -162,7 +166,7 @@ contract OrangeVerifiedCredential {
             )
         );
         certificatesWithType[_typeId].push(id);
-        emit CertificateAdded(_typeId, id, _data, msg.sender);
+        emit CertificateAdded(_typeId, id, issuedTo, _data, msg.sender);
         return id;
     }
 
