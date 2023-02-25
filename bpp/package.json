@@ -23,7 +23,7 @@
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "ethers": "^6.0.8",
+    "ethers": "^5.7.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
   },

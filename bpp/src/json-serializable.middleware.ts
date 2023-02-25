@@ -1,10 +1,15 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
+import { ethers } from 'ethers';
 import { NextFunction } from 'express';
 
 export function convertBigintToString(obj: any) {
   for (const key in obj) {
     // convert main tree
     if (typeof obj[key] == 'bigint') {
+      obj[key] = obj[key].toString();
+    }
+
+    if (ethers.BigNumber.isBigNumber(obj[key])) {
       obj[key] = obj[key].toString();
     }
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ContractService } from 'src/contract/contract.service';
 import { convertBigintToString } from 'src/json-serializable.middleware';
 import { Certificate } from './schemas';
@@ -62,6 +62,13 @@ class CertificateMeta {
   }
 }
 
+interface AddCertificate {
+  typeId: number;
+  issuedTo: string;
+  data: any;
+  validity: number;
+}
+
 @Controller('certs')
 export class CertsController {
   constructor(private contract: ContractService) {}
@@ -87,5 +94,23 @@ export class CertsController {
     let types = await this.contract.contract.getAllCertificateTypes();
     types = types.map((c: any) => CertificateMetaType.fromResp(c));
     return types;
+  }
+
+  @Post('add')
+  async addCert(@Body() body: AddCertificate): Promise<CertificateMeta> {
+    const res = await this.contract.contract.addCertificate(
+      body.typeId,
+      body.issuedTo,
+      JSON.stringify(body.data),
+      body.validity,
+    );
+    // console.log(res);
+    const waited = await res.wait();
+    // console.log(waited);
+    const certId = waited.events[0].args.certificateId;
+
+    let cert = await this.contract.contract.getCertificate(certId);
+    cert = CertificateMeta.fromResp(cert);
+    return cert;
   }
 }
