@@ -21,6 +21,7 @@ contract OrangeVerifiedCredential {
         uint256 createdAt;
         // 0 means no expiry.
         uint256 validity;
+        bool verified;
         bool revoked;
     }
 
@@ -31,11 +32,16 @@ contract OrangeVerifiedCredential {
 
     event CertificateTypeAdded(uint256 id, string name, address indexed owner);
     event CertificateTypeDeleted(uint256 id);
-    event CertificateIssued(
+    event CertificateAdded(
         uint256 indexed typeId,
         uint256 indexed certificateId,
         string data,
         address indexed owner
+    );
+    event CertificateVerified(
+        uint256 indexed typeId,
+        uint256 indexed certificateId,
+        address indexed verifier
     );
     event CertificateRevoked(
         uint256 indexed typeId,
@@ -136,10 +142,10 @@ contract OrangeVerifiedCredential {
             "Certificate type is not initialized or has been deleted"
         );
         CertificateType storage certType = certificateTypes[_typeId];
-        require(
-            msg.sender == certType.owner,
-            "Only the certificate type owner can add certificates of this type"
-        );
+        // require(
+        //     msg.sender == certType.owner,
+        //     "Only the certificate type owner can add certificates of this type"
+        // );
         require(!certType.deleted, "Certificate type is deleted");
         require(bytes(_data).length > 0, "Data must not be empty");
         uint256 id = certificates.length;
@@ -151,12 +157,34 @@ contract OrangeVerifiedCredential {
                 _data,
                 block.timestamp,
                 _validity,
+                false,
                 false
             )
         );
         certificatesWithType[_typeId].push(id);
-        emit CertificateIssued(_typeId, id, _data, msg.sender);
+        emit CertificateAdded(_typeId, id, _data, msg.sender);
         return id;
+    }
+
+    function verifyCertificate(uint256 _certificateId) public {
+        require(_certificateId < certificates.length, "Invalid certificate ID");
+        Certificate storage certificate = certificates[_certificateId];
+        require(
+            certificate._isInit && !certificate.revoked,
+            "Certificate does not exist or was revoked"
+        );
+        require(
+            msg.sender == certificate.type_.owner,
+            "Only the certificate type owner can verify certificates of this type"
+        );
+
+        certificate.verified = true;
+
+        emit CertificateVerified(
+            certificate.type_.id,
+            _certificateId,
+            msg.sender
+        );
     }
 
     // revokeCertificate: Revoke a certificate.
