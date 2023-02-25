@@ -1,10 +1,10 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'app',
-  webDir: 'www',
-  bundledWebRuntime: false
+  appId: "network.oranfify.app",
+  appName: "Orangify",
+  webDir: "build",
+  bundledWebRuntime: false,
 };
 
 export default config;
