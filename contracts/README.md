@@ -1,13 +1,22 @@
-# Sample Hardhat Project
+# Orange Verified Credentials Contracts
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## Development
 
-Try running some of the following tasks:
+```
+npx hardhat compile
+```
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
+Run node in a different terminal:
+```
 npx hardhat node
-npx hardhat run scripts/deploy.ts
+```
+
+Deploy contract. Note the address.
+```
+npx hardhat run scripts/deploy.ts --network localhost
+```
+
+Run console. Experiment. Copy code inside `main` of `script/setup.ts` to add data (replace the correct contract address there).
+```
+npx hardhat console --network localhost
 ```
