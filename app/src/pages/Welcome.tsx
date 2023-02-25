@@ -1,7 +1,10 @@
 import { IonPage } from "@ionic/react";
 import hero from "../assets/welcome/hero.png";
+import { useHistory } from "react-router-dom";
 
 const Welcome: React.FC = () => {
+  const history = useHistory();
+
   return (
     <IonPage className="bg-welcome bg-cover bg-center !justify-center px-6 gap-8">
       <img src={hero} alt="" />
@@ -15,16 +18,17 @@ const Welcome: React.FC = () => {
       </div>
 
       <button
+        onClick={() => history.push("/auth")}
         type="button"
-        className="p-10 inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="p-10 inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-lg font-medium text-gray-700 shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={1.5}
+          strokeWidth={2}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-8 h-8"
         >
           <path
             strokeLinecap="round"
