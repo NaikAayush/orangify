@@ -11,7 +11,7 @@ export function convertBigintToString(obj: any) {
     for (const prop in obj[key]) {
       // recursively search for inner branches
       if (typeof obj[key][prop] == 'object') {
-        this.convertBigintToString(obj[key]);
+        convertBigintToString(obj[key]);
       } else {
         if (typeof obj[key][prop] == 'bigint') {
           obj[key][prop] = obj[key][prop].toString();
