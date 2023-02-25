@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Rogerex Regular */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 400;
+  src: url("./assets/fonts/RogerexRegular.ttf") format("truetype");
+}
+
+/* Rogerex Medium */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 500;
+  src: url("./assets/fonts/RogerexMedium.ttf") format("truetype");
+}
+
+/* Rogerex Semi-Bold */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 600;
+  src: url("./assets/fonts/RogerexSemiBold.ttf") format("truetype");
+}
+
+/* Rogerex Bold */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 700;
+  src: url("./assets/fonts/RogerexBold.ttf") format("truetype");
+}
+
+/* Rogerex Extra-Bold */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 800;
+  src: url("./assets/fonts/RogerexExtraBold.ttf") format("truetype");
+}
+
+/* Rogerex Black */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 900;
+  src: url("./assets/fonts/RogerexBlack.ttf") format("truetype");
+}
+
+/* Rogerex Max */
+@font-face {
+  font-family: "Rogerex";
+  font-weight: 1000;
+  src: url("./assets/fonts/RogerexMax.ttf") format("truetype");
+}
