@@ -199,6 +199,10 @@ contract OrangeVerifiedCredential {
             msg.sender == certificate.type_.owner,
             "Only the certificate type owner can revoke certificates of this type"
         );
+        require(
+            certificate._isInit && !certificate.revoked,
+            "Certificate does not exist or was already revoked"
+        );
         certificate.revoked = true;
         emit CertificateRevoked(
             certificate.type_.id,
@@ -242,6 +246,36 @@ contract OrangeVerifiedCredential {
                 index++;
             }
         }
+        return result;
+    }
+
+    function getCertificatesByOwner(
+        string memory _owner
+    ) public view returns (Certificate[] memory) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < certificates.length; i++) {
+            if (
+                keccak256(bytes(certificates[i].issuedTo)) ==
+                keccak256(bytes(_owner)) &&
+                certificates[i].revoked == false
+            ) {
+                count++;
+            }
+        }
+
+        Certificate[] memory result = new Certificate[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < certificates.length; i++) {
+            if (
+                keccak256(bytes(certificates[i].issuedTo)) ==
+                keccak256(bytes(_owner)) &&
+                certificates[i].revoked == false
+            ) {
+                result[index] = certificates[i];
+                index++;
+            }
+        }
+
         return result;
     }
 }
