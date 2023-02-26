@@ -7,6 +7,14 @@ export const getAllCertificateTypes = async () => {
   console.log(response.data);
   return response.data;
 };
+
+export const getCertificateByID = async () => {
+  const response = await walletAxiosInstance.get("/certs/types");
+
+  console.log(response.data);
+  return response.data;
+};
+
 export const getMyCertificates = async () => {
   const params = new URLSearchParams();
   params.append("issuedTo", auth.currentUser?.phoneNumber as string);
