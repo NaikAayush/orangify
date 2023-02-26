@@ -17,7 +17,7 @@ export default function MyCertificateList({
                   <div className="flex-shrink-0">
                     <img
                       className="h-12 w-12 rounded-lg object-contain"
-                      src="{aadhaar}"
+                      src={certificate.type_.metadata.iconUrl}
                       alt=""
                     />
                   </div>

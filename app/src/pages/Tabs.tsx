@@ -14,6 +14,7 @@ import Jobs from "./tabs/Jobs";
 import Settings from "./tabs/Settings";
 import Wallet from "./tabs/Wallet";
 import Job from "../components/Job";
+import Certificate from "../components/wallet/Certificate";
 
 const Tabs: React.FC = () => {
   return (

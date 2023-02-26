@@ -15,6 +15,9 @@ export interface Type {
   createdAt: string;
   deleted: boolean;
   owner: string;
+  metadata: {
+    iconUrl: string;
+  };
 }
 
 export interface WorksAs {
@@ -63,4 +66,11 @@ export interface MyCertificate {
   validity: string;
   verified: boolean;
   revoked: boolean;
+}
+
+export interface AddCertificateBody {
+  typeId: string;
+  issuedTo: string;
+  data: any;
+  validity: number;
 }
