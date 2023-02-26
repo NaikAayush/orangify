@@ -120,4 +120,14 @@ export class Eth {
     const waited = await res.wait();
     console.log(waited);
   }
+
+  async newCertificateType(name: string, iconUrl: string): Promise<void> {
+    await this.ensureInit();
+    const res = await this.contract.addCertificateType(
+      name,
+      JSON.stringify({ iconUrl })
+    );
+    const waited = await res.wait();
+    console.log(waited);
+  }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { eth } from "../_app";
-import Link from 'next/link';
+import Link from "next/link";
 
 const List = () => {
   const [certTypes, setCertTypes] = useState<any[]>([]);
@@ -9,12 +9,12 @@ const List = () => {
     const getCertTypes = async () => {
       const types = await eth.getAllCertificateTypes();
       setCertTypes(types);
+
+      console.log("certTypes in List", certTypes);
     };
 
     getCertTypes();
   }, []);
-
-  console.log(certTypes);
 
   return (
     // <div>
@@ -30,18 +30,23 @@ const List = () => {
         <h1 className="text-xl font-bold text-gray-700">
           Your Credential Types
         </h1>
-        <button
-          type="button"
-          className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          New Certificate Type
-        </button>
+        <Link href="/new">
+          <button
+            type="button"
+            className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            New Certificate Type
+          </button>
+        </Link>
       </div>
       <div className="overflow-hidden bg-white shadow sm:rounded-md">
         <ul role="list" className="divide-y divide-gray-200">
           {certTypes.map((certificateType) => (
             <li key={certificateType.id}>
-              <Link href={`/type/${certificateType.id}`} className="block hover:bg-gray-50">
+              <Link
+                href={`/type/${certificateType.id}`}
+                className="block hover:bg-gray-50"
+              >
                 <div className="flex items-center px-4 py-4 sm:px-6">
                   <div className="flex min-w-0 flex-1 items-center">
                     <div className="flex-shrink-0">
