@@ -28,7 +28,6 @@ export default function Job() {
   const [jobDescriptionTruncated, setJobDescriptionTruncated] = useState(true);
 
   useEffect(() => {
-    console.log(jobInfo);
     selectJob(jobId).then((res) => {
       setJobInfo(res as SelectInterface);
       setJoborder(res.responses[0].message.order);
