@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # For Certificate Issuers
 
+## [Open the issuer app](https://issuer.orangify.network/)
+
+Note: The issuer app requires metamask to run. Use the network `http://35.200.223.170:8545/` for the private blockchain.
+
 ## Features
 
 - **Avoid Forgery**: only you can verify certificates created by you. This is enforced using asymmetric key cryptography in a private blockchain system.
