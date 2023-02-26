@@ -99,10 +99,15 @@ export class BecknController {
         },
       };
 
+      const ctx: Context = JSON.parse(JSON.stringify(body.context));
+      ctx.action = 'on_search';
+      ctx.bpp_id = 'orangify-network-2';
+      ctx.bpp_uri = 'https://bpp.orangify.network/beckn';
+
       try {
         const resp = await firstValueFrom(
           this.httpService.post(makeBapUrl(body.context.bap_uri, 'on_search'), {
-            context: body.context,
+            context: ctx,
             message,
           }),
         );
