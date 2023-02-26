@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { axiosInstance } from "./api";
+import { searchData } from "./data/search";
 
 const buildBody = (jobTitle: string) => {
   return {
@@ -27,6 +28,9 @@ const buildBody = (jobTitle: string) => {
 };
 
 export const searchWithJobTitle = async (jobTitle: string) => {
+  if (import.meta.env.VITE_USE_LOCAL === "true") {
+    return searchData;
+  }
   const response = await axiosInstance.post("/search", buildBody(jobTitle));
 
   console.log(response.data);

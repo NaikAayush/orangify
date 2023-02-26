@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { axiosInstance } from "./api";
+import { selectData } from "./data/select";
 
 const buildBody = (jobId: string) => {
   return {
@@ -29,10 +30,10 @@ const buildBody = (jobId: string) => {
 };
 
 export const selectJob = async (jobId: string) => {
+  if (import.meta.env.VITE_USE_LOCAL === "true") {
+    return selectData;
+  }
   const response = await axiosInstance.post("/select", buildBody(jobId));
 
-  console.log(response.data);
-
-  console.log(response.data.responses[0].message);
   return response.data;
 };
