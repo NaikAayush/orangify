@@ -119,12 +119,12 @@ export interface Error {
 
 /** @description Describes a BPP catalog */
 export interface Catalog {
-  'bpp/descriptor'?: Descriptor;
-  'bpp/categories'?: null;
-  'bpp/fulfillments'?: null;
-  'bpp/payments'?: null;
-  'bpp/offers'?: null;
-  'bpp/providers'?: Provider[];
+  descriptor?: Descriptor;
+  categories?: null;
+  fulfillments?: null;
+  payments?: null;
+  offers?: null;
+  providers?: Provider[];
   /**
    * Format: date-time
    * @description Time after which catalog has to be refreshed

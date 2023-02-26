@@ -86,17 +86,15 @@ export class BecknController {
 
       const message: { catalog: Catalog } = {
         catalog: {
-          'bpp/descriptor': { name: 'Orange Jobs' },
-          'bpp/providers': Array.from(orgs.entries()).map(
-            ([org, orgData], i) => {
-              return {
-                id: i.toString(),
-                descriptor: { name: org },
-                locations: orgData.locs,
-                items: orgData.items,
-              };
-            },
-          ),
+          descriptor: { name: 'Orange Jobs' },
+          providers: Array.from(orgs.entries()).map(([org, orgData], i) => {
+            return {
+              id: i.toString(),
+              descriptor: { name: org },
+              locations: orgData.locs,
+              items: orgData.items,
+            };
+          }),
         },
       };
 
