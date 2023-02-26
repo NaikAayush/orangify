@@ -3,6 +3,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { dummyDb } from 'src/posting/posting.controller';
 import { Job } from 'src/posting/schemas';
+import { createAuthorizationHeader } from './crypt';
 import {
   Catalog,
   Context,
@@ -103,13 +104,22 @@ export class BecknController {
       ctx.action = 'on_search';
       ctx.bpp_id = 'orangify-network-2';
       ctx.bpp_uri = 'https://bpp.orangify.network/beckn';
+      const bapBody = {
+        context: ctx,
+        message,
+      };
 
       try {
         const resp = await firstValueFrom(
-          this.httpService.post(makeBapUrl(body.context.bap_uri, 'on_search'), {
-            context: ctx,
-            message,
-          }),
+          this.httpService.post(
+            makeBapUrl(body.context.bap_uri, 'on_search'),
+            bapBody,
+            {
+              headers: {
+                Authorization: await createAuthorizationHeader(bapBody),
+              },
+            },
+          ),
         );
         console.log(resp.data);
       } catch (error) {
