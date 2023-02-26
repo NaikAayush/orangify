@@ -24,6 +24,7 @@ export class AppModule {
       .apply((req: Request, res: Response, next: NextFunction) => {
         console.log(JSON.stringify(req.body));
         console.log('BAP got request', req.body);
+        console.log('BAP got request headers', req.headers);
         // console.log('catalog', req.body.message.catalog);
         console.dir(req.body.message, { depth: null });
         // console.log('providers', req.body.message.catalog['bpp/providers']);
