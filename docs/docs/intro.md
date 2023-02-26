@@ -3,46 +3,26 @@ sidebar_position: 1
 slug: /
 ---
 
-# Tutorial Intro
+# Orangify
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Welcome to Orangify, a platform for **decentralized credential verification**, storage, and issuance.
 
-## Getting Started
+Orangify is designed to provide a seamless and secure way for individuals and organizations to manage their digital credentials, such as **academic certificates**, **professional licenses**, and other important documents.
 
-Get started by **creating a new site**.
+Orangify leverages the power of private blockchain technology (Hyperledger Besu) to augment the existing Beckn [DSEP APIs](https://github.com/beckn/DSEP-Specification), making it easier for users to verify their credentials and for organizations to issue and store them securely. This means that certificates are issued directly by the organizations themselves and cannot be forged, ensuring the authenticity of the credentials.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
 
-### What you'll need
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+<!-- With Orangify, you can be confident that your credentials are **tamper-proof** and cannot be altered without your permission. Our decentralized approach eliminates the need for intermediaries, allowing you to maintain complete control over your data. Whether you're an individual looking to share your credentials with potential employers, or an organization seeking a more efficient way to manage and verify credentials, Orangify is the solution for you. -->
 
-## Generate a new site
+<!-- Welcome to Orangify, a platform designed to offer a decentralized and secure solution for verifying, storing, and issuing digital credentials. With Orangify, individuals and organizations can easily manage their digital credentials, such as **academic certificates** and **professional licenses**, without the need for intermediaries. -->
 
-Generate a new Docusaurus site using the **classic template**.
+<!-- Orangify uses private blockchain technology (Hyperledger Besu) and the Beckn Protocol to create a tamper-proof system that allows organizations to issue certificates securely. <!-1- Our decentralized approach to managing credentials gives users complete control over their data, while still allowing for easy verification by third parties. With Orangify, you can be confident that your credentials are secure and cannot be altered without your permission. -1-> -->
 
-The classic template will automatically be added to your project after you run the command:
+<!-- In this documentation, we will provide a comprehensive guide on how to use Orangify. We will cover topics such as setting up your account, issuing and verifying credentials, and managing your digital certificates. Whether you are an individual looking to share your credentials with potential employers or an organization seeking a more efficient way to manage and verify credentials, Orangify is the perfect solution for you. -->
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+## Who is it for?
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+- [End users](for-users.md) looking to have their certificates - work experience, courses, etc. - in one place to easily apply for opportunities.
+- [Issuer Organizations](for-issuers.md) such as corporates, NGOs, training institutes and universities looking to distribute verified certificates digitally. It prevents forgery and builds trust for the brand.
+- [Hiring Organizations](for-hirers.md) looking to streamline their hiring process to quickly identify legit candidates with good credentials.
