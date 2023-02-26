@@ -10,7 +10,7 @@ WORKDIR /app
 
 COPY wallet-api .
 
-COPY /contracts/artifacts/contracts/OrangeVerifiedCredential.sol/OrangeVerifiedCredential.json src/assets/
+RUN cp /contracts/artifacts/contracts/OrangeVerifiedCredential.sol/OrangeVerifiedCredential.json src/assets/
 
 RUN npm install
 
