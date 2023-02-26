@@ -95,6 +95,12 @@ export interface SearchMessage {
   };
 }
 
+export interface SelectMessage {
+  order: {
+    items: { id: string }[];
+  };
+}
+
 export interface Error {
   /** @enum {string} */
   type:
@@ -211,4 +217,73 @@ export interface Item {
   };
   /** @description IDs of the locations where the job is available */
   location_ids: string[];
+}
+
+interface SelectProvider {
+  descriptor: {
+    name: string;
+  };
+  fulfillments: Fulfillment[];
+  locations: SelectLocation[];
+}
+
+interface Fulfillment {
+  id: string;
+  type: string;
+  tracking: boolean;
+}
+
+interface SelectLocation {
+  id: string;
+  city: {
+    name: string;
+  };
+}
+
+interface SelectItem {
+  id: string;
+  descriptor: {
+    name: string;
+    long_desc: string;
+  };
+  category_ids: string[];
+  fulfillment_ids: string[];
+  location_ids: string[];
+  xinput: {
+    form: {
+      url: string;
+    };
+  };
+  time: {
+    range: {
+      start: string;
+      end: string;
+    };
+  };
+  tags: Tag[];
+}
+
+export interface Tag {
+  descriptor: {
+    name: string;
+    code?: string;
+  };
+  list: ListItem[];
+  display: boolean;
+}
+
+interface ListItem {
+  descriptor: {
+    name?: string;
+    code?: string;
+  };
+  value: string;
+}
+
+export interface SelectResponseMessage {
+  order: {
+    provider: SelectProvider;
+    items: SelectItem[];
+    type: 'DEFAULT';
+  };
 }

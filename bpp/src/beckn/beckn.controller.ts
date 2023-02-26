@@ -10,6 +10,9 @@ import {
   Item,
   Location,
   SearchMessage,
+  SelectMessage,
+  SelectResponseMessage,
+  Tag,
 } from './schemas';
 
 interface RequestContext {
@@ -96,16 +99,119 @@ export class BecknController {
         },
       };
 
+      try {
+        const resp = await firstValueFrom(
+          this.httpService.post(makeBapUrl(body.context.bap_uri, 'on_search'), {
+            context: body.context,
+            message,
+          }),
+        );
+        console.log(resp.data);
+      } catch (error) {
+        console.error(error);
+        console.error(error.response.data);
+      }
+    };
+
+    searcher();
+
+    return {
+      ack: { status: 'ACK' },
+      error: null,
+    };
+  }
+
+  @Post('select')
+  select(@Body() body: RequestContext & { message: SelectMessage }): Response {
+    const items = body.message.order.items;
+    if (items.length > 1) {
+      return {
+        ack: { status: 'ACK' },
+        error: {
+          type: 'CORE-ERROR',
+          code: 'Orange',
+          message: 'Cannot select more than one item at a time',
+        },
+      };
+    }
+    const item = items[0];
+    const job = dummyDb.jobPostings.get(item.id);
+    const provider = {
+      descriptor: {
+        name: job.hiringOrganization.name,
+      },
+      fulfillments: job.jobLocationType.map((loc, i) => {
+        return { id: (i + 1).toString(), type: loc, tracking: false };
+      }),
+      locations: [
+        {
+          id: '1',
+          descriptor: { name: job.jobLocation.address.name },
+          country: { name: job.jobLocation.address.addressCountry },
+          city: { name: job.jobLocation.address.addressRegion },
+        },
+      ],
+    };
+    const tags: Tag[] = [];
+    job.qualifications.forEach((qual) => {
+      tags.push({
+        descriptor: { name: qual.type, code: qual.type },
+        display: true,
+        list: qual.values.map((v) => {
+          return { descriptor: { name: v.kind, code: v.kind }, value: v.value };
+        }),
+      });
+    });
+    const jobItem = {
+      id: item.id,
+      descriptor: {
+        name: job.title,
+        long_desc: job.description,
+      },
+      category_ids: [],
+      fulfillment_ids: job.jobLocationType.map((_, i) => (i + 1).toString()),
+      location_ids: ['1'],
+      xinput: {
+        form: {
+          url: '',
+        },
+      },
+      time: {
+        range: {
+          start: job.datePosted,
+          end: job.validThrough,
+        },
+      },
+      tags,
+      // tags: [
+      //   // ...(...(job.qualifications.map(qual => {
+      //   //   return [];
+      //   // }))),
+      //   // { descriptor: { name: 'Qualifications' }, list: job.qualifications.map(qual => {
+      //   //   return {
+      //   //     descriptor: {
+      //   //       name: qual.type
+      //   //     }
+      //   //   }
+      //   // }), display: true },
+      // ],
+    };
+    const respMsg: SelectResponseMessage = {
+      order: { provider, items: [jobItem], type: 'DEFAULT' },
+    };
+    // dummyDb.jobPostings.get(body.message.order.items);
+
+    const dostuff = async () => {
       const resp = await firstValueFrom(
-        this.httpService.post(makeBapUrl(body.context.bap_uri, 'on_search'), {
+        this.httpService.post(makeBapUrl(body.context.bap_uri, 'on_select'), {
           context: body.context,
-          message,
+          message: respMsg,
         }),
       );
       console.log(resp.data);
     };
 
-    searcher();
+    dostuff();
 
     return {
       ack: { status: 'ACK' },

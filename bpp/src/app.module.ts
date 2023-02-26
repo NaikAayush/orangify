@@ -23,7 +23,7 @@ export class AppModule {
       .apply((req: Request, res: Response, next: NextFunction) => {
         console.log('BAP got request', req.body);
         // console.log('catalog', req.body.message.catalog);
-        console.dir(req.body.message.catalog, { depth: null });
+        console.dir(req.body.message, { depth: null });
         // console.log('providers', req.body.message.catalog['bpp/providers']);
         res.send({ status: 'nice', body: req.body });
         next();
