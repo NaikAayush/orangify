@@ -8,6 +8,7 @@ import {
   Catalog,
   Context,
   Error,
+  InitMessage,
   Item,
   Location,
   SearchMessage,
@@ -231,6 +232,118 @@ export class BecknController {
         const resp = await firstValueFrom(
           this.httpService.post(
             makeBapUrl(body.context.bap_uri, 'on_select'),
+            bapBody,
+            {
+              headers: {
+                Authorization: await createAuthorizationHeader(bapBody),
+              },
+            },
+          ),
+        );
+        console.log(resp.data);
+      } catch (error) {
+        console.error(error);
+        console.error(error.response.data);
+      }
+    };
+
+    dostuff();
+
+    return {
+      ack: { status: 'ACK' },
+      error: null,
+    };
+  }
+
+  @Post('init')
+  init(@Body() body: RequestContext & { message: InitMessage }): Response {
+    const items = body.message.order.items;
+    if (items.length > 1) {
+      return {
+        ack: { status: 'ACK' },
+        error: {
+          type: 'CORE-ERROR',
+          code: 'Orange',
+          message: 'Cannot select more than one item at a time',
+        },
+      };
+    }
+
+    // const item = items[0];
+    // const job = dummyDb.jobPostings.get(item.id);
+
+    dummyDb.jobAppls.push(body.message.order);
+
+    const ctx: Context = JSON.parse(JSON.stringify(body.context));
+    ctx.action = 'on_init';
+    ctx.bpp_id = BPP_ID;
+    ctx.bpp_uri = BPP_URI;
+    const bapBody = {
+      context: ctx,
+      message: body.message.order,
+    };
+
+    const dostuff = async () => {
+      try {
+        const resp = await firstValueFrom(
+          this.httpService.post(
+            makeBapUrl(body.context.bap_uri, 'on_init'),
+            bapBody,
+            {
+              headers: {
+                Authorization: await createAuthorizationHeader(bapBody),
+              },
+            },
+          ),
+        );
+        console.log(resp.data);
+      } catch (error) {
+        console.error(error);
+        console.error(error.response.data);
+      }
+    };
+
+    dostuff();
+
+    return {
+      ack: { status: 'ACK' },
+      error: null,
+    };
+  }
+
+  @Post('confirm')
+  confirm(@Body() body: RequestContext & { message: InitMessage }): Response {
+    const items = body.message.order.items;
+    if (items.length > 1) {
+      return {
+        ack: { status: 'ACK' },
+        error: {
+          type: 'CORE-ERROR',
+          code: 'Orange',
+          message: 'Cannot select more than one item at a time',
+        },
+      };
+    }
+
+    // const item = items[0];
+    // const job = dummyDb.jobPostings.get(item.id);
+
+    dummyDb.jobAppls.push(body.message.order);
+
+    const ctx: Context = JSON.parse(JSON.stringify(body.context));
+    ctx.action = 'on_confirm';
+    ctx.bpp_id = BPP_ID;
+    ctx.bpp_uri = BPP_URI;
+    const bapBody = {
+      context: ctx,
+      message: body.message.order,
+    };
+
+    const dostuff = async () => {
+      try {
+        const resp = await firstValueFrom(
+          this.httpService.post(
+            makeBapUrl(body.context.bap_uri, 'on_confirm'),
             bapBody,
             {
               headers: {

@@ -101,6 +101,15 @@ export interface SelectMessage {
   };
 }
 
+export interface InitMessage {
+  order: {
+    provider: { id: string };
+    items: { id: string }[];
+    fulfillments: any[];
+    xinput: any;
+  };
+}
+
 export interface Error {
   /** @enum {string} */
   type:

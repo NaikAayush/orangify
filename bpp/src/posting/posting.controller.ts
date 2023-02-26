@@ -9,8 +9,9 @@ import {
 } from '@nestjs/common';
 import { Job } from './schemas';
 
-export const dummyDb: { jobPostings: Map<string, Job> } = {
+export const dummyDb: { jobPostings: Map<string, Job>; jobAppls: any[] } = {
   jobPostings: new Map(),
+  jobAppls: [],
 };
 
 @Controller('posting')
