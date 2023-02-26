@@ -113,4 +113,11 @@ export class Eth {
     certs = certs.map((c: any) => CertificateMeta.fromResp(c));
     return certs;
   }
+
+  async verifyCertificate(certId: number): Promise<void> {
+    await this.ensureInit();
+    const res = await this.contract.verifyCertificate(certId);
+    const waited = await res.wait();
+    console.log(waited);
+  }
 }

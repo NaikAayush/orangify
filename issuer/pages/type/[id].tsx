@@ -4,25 +4,28 @@ import {
   ShieldExclamationIcon,
 } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { CertificateMeta, CertificateMetaType } from "../../lib/eth";
+import { CertificateMeta } from "../../lib/eth";
 import { eth } from "../_app";
 
 const Type = () => {
   const router = useRouter();
   const { id } = router.query;
+  // console.log(router.query);
   const certTypeId = parseInt(id?.toString()!);
   console.log("got certTypeId", certTypeId);
 
-  const [certTypes, setCertTypes] = useState<CertificateMetaType[]>([]);
-  useEffect(() => {
-    const getCertTypes = async () => {
-      const types = await eth.getAllCertificateTypes();
-      setCertTypes(types);
-    };
+  const [updated, setUpdated] = useState(0);
 
-    getCertTypes();
-  }, []);
-  console.log("certTypes in type page", certTypes);
+  // const [certTypes, setCertTypes] = useState<CertificateMetaType[]>([]);
+  // useEffect(() => {
+  //   const getCertTypes = async () => {
+  //     const types = await eth.getAllCertificateTypes();
+  //     setCertTypes(types);
+  //     console.log("certTypes in type page", certTypes);
+  //   };
+
+  //   getCertTypes();
+  // }, [updated]);
 
   const [unverifiedCerts, setUnverifiedCerts] = useState<CertificateMeta[]>([]);
   const [verifiedCerts, setVerifiedCerts] = useState<CertificateMeta[]>([]);
@@ -33,11 +36,17 @@ const Type = () => {
       const verCerts = certs.filter((cert) => cert.verified);
       setUnverifiedCerts(unverCerts);
       setVerifiedCerts(verCerts);
+      console.log("unverifiedCerts", unverifiedCerts);
+      console.log("verifiedCerts", verifiedCerts);
     };
 
     getCerts();
-  }, []);
-  console.log("certs", unverifiedCerts);
+  }, [updated]);
+
+  async function verifyCert(certId: number) {
+    await eth.verifyCertificate(certId);
+    setUpdated(updated + 1);
+  }
 
   return (
     <div>
@@ -91,6 +100,7 @@ const Type = () => {
                       <button
                         type="button"
                         className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        onClick={() => verifyCert(Number(certificate.id))}
                       >
                         Verify
                       </button>
@@ -158,6 +168,10 @@ const Type = () => {
       </div>
     </div>
   );
+};
+
+Type.getInitialProps = async () => {
+  return {};
 };
 
 export default Type;
