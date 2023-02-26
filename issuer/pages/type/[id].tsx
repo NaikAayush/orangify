@@ -90,10 +90,10 @@ const Type = () => {
                               <span className="font-medium text-gray-600">
                                 Valid until:
                               </span>{" "}
-                              {certificate.validity.toString() == "0"
+                              {certificate.validity.toString() !== "0"
                                 ? new Date(
-                                    Number(certificate.createdAt) +
-                                      Number(certificate.validity)
+                                    Number(certificate.createdAt) * 1000 +
+                                      Number(certificate.validity) * 1000
                                   ).toLocaleDateString()
                                 : "Forever"}
                             </div>
@@ -153,7 +153,7 @@ const Type = () => {
                               <span className="font-medium text-gray-600">
                                 Valid until:
                               </span>{" "}
-                              {certificate.validity.toString() == "0"
+                              {certificate.validity.toString() !== "0"
                                 ? new Date(
                                     Number(certificate.createdAt) +
                                       Number(certificate.validity)
