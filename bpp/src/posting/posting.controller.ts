@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Job } from './schemas';
 
-const dummyDb: { jobPostings: Map<string, Job> } = {
+export const dummyDb: { jobPostings: Map<string, Job> } = {
   jobPostings: new Map(),
 };
 
