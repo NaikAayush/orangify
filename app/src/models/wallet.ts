@@ -4,6 +4,9 @@ export interface CertificateType {
   createdAt: string;
   deleted: boolean;
   owner: string;
+  metadata: {
+    iconUrl: string;
+  };
 }
 
 export interface Type {
