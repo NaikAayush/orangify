@@ -13,6 +13,7 @@ import { cog, wallet, newspaper } from "ionicons/icons";
 import Jobs from "./tabs/Jobs";
 import Settings from "./tabs/Settings";
 import Wallet from "./tabs/Wallet";
+import Job from "../components/Job";
 
 const Tabs: React.FC = () => {
   return (
@@ -22,6 +23,9 @@ const Tabs: React.FC = () => {
           <Redirect exact path="/tabs" to="/tabs/jobs" />
           <Route exact path="/tabs/jobs">
             <Jobs />
+          </Route>
+          <Route exact path="/tabs/jobs/:jobId">
+            <Job />
           </Route>
           <Route exact path="/tabs/wallet">
             <Wallet />
@@ -48,5 +52,16 @@ const Tabs: React.FC = () => {
     </IonContent>
   );
 };
+
+const JobRouterOutlet: React.FC = () => (
+  <IonRouterOutlet>
+    <Route path="/tabs/jobs" exact={true}>
+      <Jobs />
+    </Route>
+    <Route path="/tabs/jobs/job" exact={true}>
+      <Job />
+    </Route>
+  </IonRouterOutlet>
+);
 
 export default Tabs;

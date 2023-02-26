@@ -1,5 +1,5 @@
 import { IonPage } from "@ionic/react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import {
   ConfirmationResult,
   RecaptchaVerifier,
