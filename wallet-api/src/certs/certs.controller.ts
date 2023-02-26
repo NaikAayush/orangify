@@ -6,6 +6,7 @@ import { Certificate } from './schemas';
 class CertificateMetaType {
   public id: bigint;
   public name: string;
+  public metadata: any;
   public createdAt: bigint;
   public deleted: boolean;
   public owner: string;
@@ -14,6 +15,7 @@ class CertificateMetaType {
     return new CertificateMetaType({
       id: cert.id,
       name: cert.name,
+      metadata: JSON.parse(cert.metadata),
       createdAt: cert.createdAt,
       deleted: cert.deleted,
       owner: cert.owner,

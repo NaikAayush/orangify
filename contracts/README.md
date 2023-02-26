@@ -16,7 +16,12 @@ Deploy contract. Note the address.
 npx hardhat run scripts/deploy.ts --network localhost
 ```
 
-Run console. Experiment. Copy code inside `main` of `script/setup.ts` to add data (replace the correct contract address there).
+Set up basic certificate type and example cert.
+```
+npx hardhat run scripts/setup.ts --network localhost
+```
+
+Run console. Experiment.
 ```
 npx hardhat console --network localhost
 ```

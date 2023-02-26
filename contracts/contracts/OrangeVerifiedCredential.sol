@@ -6,6 +6,7 @@ contract OrangeVerifiedCredential {
         bool _isInit;
         uint256 id;
         string name;
+        string metadata;
         uint256 createdAt;
         bool deleted;
         address owner;
@@ -31,7 +32,12 @@ contract OrangeVerifiedCredential {
     // CertificateTypeID => CertificateID[]
     mapping(uint256 => uint256[]) certificatesWithType;
 
-    event CertificateTypeAdded(uint256 id, string name, address indexed owner);
+    event CertificateTypeAdded(
+        uint256 id,
+        string name,
+        string metadata,
+        address indexed owner
+    );
     event CertificateTypeDeleted(uint256 id);
     event CertificateAdded(
         uint256 indexed typeId,
@@ -52,13 +58,24 @@ contract OrangeVerifiedCredential {
     );
 
     // addCertificateType: Create a new certificate type.
-    function addCertificateType(string memory _name) public returns (uint256) {
+    function addCertificateType(
+        string memory _name,
+        string memory metadata
+    ) public returns (uint256) {
         require(bytes(_name).length > 0, "Name must not be empty");
         uint256 id = certificateTypes.length;
         certificateTypes.push(
-            CertificateType(true, id, _name, block.timestamp, false, msg.sender)
+            CertificateType(
+                true,
+                id,
+                _name,
+                metadata,
+                block.timestamp,
+                false,
+                msg.sender
+            )
         );
-        emit CertificateTypeAdded(id, _name, msg.sender);
+        emit CertificateTypeAdded(id, _name, metadata, msg.sender);
         return id;
     }
 

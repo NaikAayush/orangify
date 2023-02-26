@@ -3,9 +3,10 @@ import { Event } from "ethers";
 
 async function main() {
     let contract = await ethers.getContractFactory("OrangeVerifiedCredential");
-    let deployed = contract.attach("0x9A676e781A523b5d0C0e43731313A708CB607508");
+    let deployed = contract.attach("0x0165878A594ca255338adfa4d48449f69242Eb8F");
     let res = await deployed.addCertificateType(
-        "10thMarksCard",
+        "Generic",
+        JSON.stringify({ "iconUrl": "https://www.google.com/favicon.ico" }),
         {
             // value: ethers.utils.parseEther("0.00004"),
             // gasPrice: 8000000000,
@@ -15,7 +16,7 @@ async function main() {
     let waited = await res.wait();
     let certTypeId = (waited.events)[0].args.id;
     // console.log(res);
-    await deployed.getAllCertificateTypes();
+    console.log(await deployed.getAllCertificateTypes());
 
     res = await deployed.addCertificate(certTypeId, "Person1", JSON.stringify({
         "type": "Skill",
@@ -84,3 +85,10 @@ async function main() {
     await deployed.getCertificate(certId); await deployed.getCertificate(certId);
     // console.log(res);
 }
+
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
