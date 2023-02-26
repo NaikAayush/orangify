@@ -35,6 +35,9 @@ function makeBapUrl(prefix: string, endpoint: string): string {
   return `${prefix}${endpoint}`;
 }
 
+const BPP_ID = 'orangify-network-2';
+const BPP_URI = 'https://bpp.orangify.network/beckn';
+
 @Controller('beckn')
 export class BecknController {
   constructor(private readonly httpService: HttpService) {}
@@ -100,8 +103,8 @@ export class BecknController {
 
       const ctx: Context = JSON.parse(JSON.stringify(body.context));
       ctx.action = 'on_search';
-      ctx.bpp_id = 'orangify-network-2';
-      ctx.bpp_uri = 'https://bpp.orangify.network/beckn';
+      ctx.bpp_id = BPP_ID;
+      ctx.bpp_uri = BPP_URI;
       const bapBody = {
         context: ctx,
         message,
@@ -214,14 +217,33 @@ export class BecknController {
     };
     // dummyDb.jobPostings.get(body.message.order.items);
 
+    const ctx: Context = JSON.parse(JSON.stringify(body.context));
+    ctx.action = 'on_select';
+    ctx.bpp_id = BPP_ID;
+    ctx.bpp_uri = BPP_URI;
+    const bapBody = {
+      context: ctx,
+      message: respMsg,
+    };
+
     const dostuff = async () => {
-      const resp = await firstValueFrom(
-        this.httpService.post(makeBapUrl(body.context.bap_uri, 'on_select'), {
-          context: body.context,
-          message: respMsg,
-        }),
-      );
-      console.log(resp.data);
+      try {
+        const resp = await firstValueFrom(
+          this.httpService.post(
+            makeBapUrl(body.context.bap_uri, 'on_select'),
+            bapBody,
+            {
+              headers: {
+                Authorization: await createAuthorizationHeader(bapBody),
+              },
+            },
+          ),
+        );
+        console.log(resp.data);
+      } catch (error) {
+        console.error(error);
+        console.error(error.response.data);
+      }
     };
 
     dostuff();
