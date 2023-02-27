@@ -6,6 +6,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonToast,
 } from "@ionic/react";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 import { Order, SelectInterface } from "../models/select";
 import LocationTypeBadges from "./job/LocationTypeBadges";
 import Loader from "./Loader";
+import ApplyJobModal from "./job/ApplyJobModal";
 
 interface ParamTypes {
   jobId: string;
@@ -26,6 +28,24 @@ export default function Job() {
   const [jobInfo, setJobInfo] = useState<SelectInterface | null>(null);
   const [jobOrder, setJoborder] = useState<Order | null>(null);
   const [jobDescriptionTruncated, setJobDescriptionTruncated] = useState(true);
+  const [showNewComponent, setShowNewComponent] = useState(false);
+  const [present] = useIonToast();
+
+  const presentToast = (message: string) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: "bottom",
+    });
+  };
+
+  const handleOpenDialog = () => {
+    setShowNewComponent(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowNewComponent(false);
+  };
 
   useEffect(() => {
     selectJob(jobId).then((res) => {
@@ -103,6 +123,23 @@ export default function Job() {
               </dd>
             </div>
             <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+              <button
+                onClick={handleOpenDialog}
+                type="button"
+                className="inline-flex w-full justify-center items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Apply
+              </button>
+              <ApplyJobModal
+                isOpen={showNewComponent}
+                onClose={() => {
+                  handleCloseDialog();
+                }}
+                presentToast={presentToast}
+              />
+            </div>
+
+            {/* <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
               <dt className="text-sm font-medium text-gray-500">Attachments</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <ul
@@ -167,7 +204,7 @@ export default function Job() {
                   </li>
                 </ul>
               </dd>
-            </div>
+            </div> */}
           </dl>
         </div>
       </div>
