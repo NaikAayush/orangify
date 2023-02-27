@@ -26,3 +26,11 @@ Orangify leverages the power of private blockchain technology (Hyperledger Besu)
 - [End users](for-users.md) looking to have their certificates - work experience, courses, etc. - in one place to easily apply for opportunities.
 - [Issuer Organizations](for-issuers.md) such as corporates, NGOs, training institutes and universities looking to distribute verified certificates digitally. It prevents forgery and builds trust for the brand.
 - [Hiring Organizations](for-hirers.md) looking to streamline their hiring process to quickly identify legit candidates with good credentials.
+
+## [How does it work?](how.md)
+
+## What's in store for the future
+
+Orangify aims to become the de-facto solution for verified credentials on the Beckn network. Towards this end, we plan to implement:
+- A custom job posting app that requires candidates to upload verified credentials. Powered by an `xinput`. Current progress: APIs for the app and the BPP are ready.
+- Onboard existing certificate and certificate issuers such as large corporates, NGOs, etc.

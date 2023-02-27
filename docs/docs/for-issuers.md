@@ -31,3 +31,6 @@ Only you can verify certificates of the new type.
 
 ![](imgs/verify-certs.png)
 
+## Joining the private blockchain
+
+Orangify makes use of a private blockchain powered by Hyperledger Besu. [Learn More](how.md) about the architecture. Or [join the network](https://github.com/NaikAayush/orangify/tree/main/contracts/besu/quorum-test-network).
