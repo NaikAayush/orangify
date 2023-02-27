@@ -27,7 +27,7 @@ Orangify leverages the power of private blockchain technology (Hyperledger Besu)
 - [Issuer Organizations](for-issuers.md) such as corporates, NGOs, training institutes and universities looking to distribute verified certificates digitally. It prevents forgery and builds trust for the brand.
 - [Hiring Organizations](for-hirers.md) looking to streamline their hiring process to quickly identify legit candidates with good credentials.
 
-## [How does it work?](how.md)
+## [How does it work?](/how)
 
 ## What's in store for the future
 
